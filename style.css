@@ -1,0 +1,46 @@
+body {
+  margin-top: 108px;
+}
+
+#container {
+  border: 3px solid black;
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  margin: auto;
+  border-radius: 6px;
+  background-color: lightskyblue;
+}
+
+#container div {
+  height: 72px;
+  display: flex;
+  padding: 0px 12px 12px 12px;
+  gap: 12px;
+}
+
+#container div button {
+  flex: 1;
+  font-size: 24px;
+  font-family: monospace;
+  font-weight: 600;
+  border-radius: 6px;
+  background-color: blanchedalmond;
+}
+
+#container #display {
+  height: 72px;
+  border: 3px solid black;
+  margin: 24px 12px;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 62px;
+  font-family: monospace;
+  display: block;
+  text-align: right;
+  background-color: #eee;
+}
+
+#container div .number {
+  background-color: aliceblue;
+}
