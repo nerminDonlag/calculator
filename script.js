@@ -18,79 +18,162 @@ const btnAdd = document.getElementById('btn-add');
 const btnEquals = document.getElementById('btn-equals');
 const btnDot = document.getElementById('btn-dot');
 
+//
+const storage = {
+  firstNumber: '',
+  secondNumber: '',
+  operation: '',
+};
+
 // button clickEventListeners
 btnAc.addEventListener('click', () => {
-  display('');
+  clear();
+  display('0');
 });
 btnBack.addEventListener('click', () => {
   alert('btn-back');
 });
 btn1.addEventListener('click', () => {
-  display('1');  
+  display('1');
+  storeNumber('1');
 });
 btn2.addEventListener('click', () => {
-  display('2');  
+  display('2');
+  storeNumber('2');
 });
 btn3.addEventListener('click', () => {
-  display('3');  
+  display('3');
+  storeNumber('3');
 });
 btn4.addEventListener('click', () => {
-  display('4');  
+  display('4');
+  storeNumber('4');
 });
 btn5.addEventListener('click', () => {
-  display('5');  
+  display('5');
+  storeNumber('5');
 });
 btn6.addEventListener('click', () => {
-  display('6');  
+  display('6');
+  storeNumber('6');
 });
 btn7.addEventListener('click', () => {
-  display('7');  
+  display('7');
+  storeNumber('7');
 });
 btn8.addEventListener('click', () => {
-  display('8');  
+  display('8');
+  storeNumber('8');
 });
 btn9.addEventListener('click', () => {
-  display('9');  
+  display('9');
+  storeNumber('9');
 });
 btn0.addEventListener('click', () => {
-  display('0');  
+  display('0');
+  storeNumber('0');
 });
 btnDivide.addEventListener('click', () => {
-  alert('btn-divide');  
+  storeOperation('divide');
 });
 btnMultiply.addEventListener('click', () => {
-  alert('btn-multiply');  
+  storeOperation('multiply');
 });
 btnSubtract.addEventListener('click', () => {
-  alert('btn-subtract');  
+  storeOperation('subtract');
 });
 btnAdd.addEventListener('click', () => {
-  alert('btn-add');  
+  storeOperation('add');
 });
 btnEquals.addEventListener('click', () => {
-  alert('btn-equals');  
+  operate();
+  display(storage.firstNumber);
 });
 btnDot.addEventListener('click', () => {
-  alert('btn-dot');  
+  alert('btn-dot');
 });
 
 // functions +, -, *, /
 function add(a, b) {
-  return a + b;
+  let result = +a + +b;
+  return result.toString();
 }
 
 function subtract(a, b) {
-  return a - b;
+  let result = +a - +b;
+  return result.toString();
 }
 
 function multiply(a, b) {
-  return a * b;
+  let result = +a * +b;
+  return result.toString();
 }
 
 function divide(a, b) {
-  return a / b;
+  if (b === '0') { display('ERROR'); }
+  let result = +a / +b;
+  return Math.round(result).toString();
 }
 
 function display(value) {
-  document.getElementById('display').innerHTML = `${value}`;
+  let onScreen = document.getElementById('display');
+  if (value.length > 8) {
+    onScreen.innerHTML = `TO BIG`;
+  } else {
+    onScreen.innerHTML = `${value}`;
+  }
 }
+
+function clear() {
+  storage.firstNumber = '';
+  storage.secondNumber = '';
+  storage.operation = '';
+}
+
+function storeNumber(number) {
+  if (!storage.firstNumber) {
+    storage.firstNumber = number;
+  } else {
+    storage.secondNumber = number;
+  }
+}
+
+function storeOperation(operation) {
+  if (!storage.operation) {
+    storage.operation = operation;
+  }
+}
+
+function operate() {
+  if (storage.firstNumber && storage.secondNumber && storage.operation) {
+    switch (storage.operation) {
+      case 'add':
+        storage.firstNumber = add(storage.firstNumber, storage.secondNumber);
+        storage.secondNumber = '';
+        storage.operation = '';
+        break;
+      case 'subtract':
+        storage.firstNumber = subtract(storage.firstNumber, storage.secondNumber);
+        storage.secondNumber = '';
+        storage.operation = '';
+        break;
+      case 'multiply':
+        storage.firstNumber = multiply(storage.firstNumber, storage.secondNumber);
+        storage.secondNumber = '';
+        storage.operation = '';
+        break;
+      case 'divide':
+        storage.firstNumber = divide(storage.firstNumber, storage.secondNumber);
+        storage.secondNumber = '';
+        storage.operation = '';
+        break;
+    }
+  }
+}
+
+//temp outpt
+const tempOutput = document.getElementById('temp-output');
+const container = document.getElementById('container');
+container.addEventListener('click', () => {
+  tempOutput.innerHTML = `storage content:<br>first: ${storage.firstNumber} ${typeof storage.firstNumber}<br>second: ${storage.secondNumber} ${typeof storage.secondNumber}<br>operation: ${storage.operation}`;
+});
