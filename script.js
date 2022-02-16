@@ -18,7 +18,7 @@ const btnAdd = document.getElementById('btn-add');
 const btnEquals = document.getElementById('btn-equals');
 const btnDot = document.getElementById('btn-dot');
 
-//
+// state storage
 const storage = {
   firstNumber: '',
   secondNumber: '',
@@ -28,50 +28,50 @@ const storage = {
 // button clickEventListeners
 btnAc.addEventListener('click', () => {
   clear();
-  display('0');
+  display('');
 });
 btnBack.addEventListener('click', () => {
-  alert('btn-back');
+  back();
 });
 btn1.addEventListener('click', () => {
-  display('1');
   storeNumber('1');
+  chooseDisplay();
 });
 btn2.addEventListener('click', () => {
-  display('2');
   storeNumber('2');
+  chooseDisplay();
 });
 btn3.addEventListener('click', () => {
-  display('3');
   storeNumber('3');
+  chooseDisplay();
 });
 btn4.addEventListener('click', () => {
-  display('4');
   storeNumber('4');
+  chooseDisplay();
 });
 btn5.addEventListener('click', () => {
-  display('5');
   storeNumber('5');
+  chooseDisplay();
 });
 btn6.addEventListener('click', () => {
-  display('6');
   storeNumber('6');
+  chooseDisplay();
 });
 btn7.addEventListener('click', () => {
-  display('7');
   storeNumber('7');
+  chooseDisplay();
 });
 btn8.addEventListener('click', () => {
-  display('8');
   storeNumber('8');
+  chooseDisplay();
 });
 btn9.addEventListener('click', () => {
-  display('9');
   storeNumber('9');
+  chooseDisplay();
 });
 btn0.addEventListener('click', () => {
-  display('0');
   storeNumber('0');
+  chooseDisplay();
 });
 btnDivide.addEventListener('click', () => {
   storeOperation('divide');
@@ -90,7 +90,7 @@ btnEquals.addEventListener('click', () => {
   display(storage.firstNumber);
 });
 btnDot.addEventListener('click', () => {
-  alert('btn-dot');
+  alert('Decimals not yet implemented!');
 });
 
 // functions +, -, *, /
@@ -110,15 +110,22 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-  if (b === '0') { display('ERROR'); }
-  let result = +a / +b;
-  return Math.round(result).toString();
+  if (b === '0') {
+    display('ERROR');
+    clear();
+  } else if (b !== '0') {
+    let result = +a / +b;
+    return Math.round(result).toString();
+  }
 }
 
+// other functions
 function display(value) {
   let onScreen = document.getElementById('display');
   if (value.length > 8) {
     onScreen.innerHTML = `TO BIG`;
+  } else if (value < 0) {
+    onScreen.innerHTML = 'NEG.NUM'
   } else {
     onScreen.innerHTML = `${value}`;
   }
@@ -133,13 +140,21 @@ function clear() {
 function storeNumber(number) {
   if (!storage.firstNumber) {
     storage.firstNumber = number;
-  } else {
-    storage.secondNumber = number;
+  } else if (!storage.operation) {
+    if (storage.firstNumber === '0') {
+      storage.firstNumber = '';
+    }
+    storage.firstNumber += number;
+  } else if (storage.operation) {
+    if (storage.secondNumber === '0') {
+      storage.secondNumber = '';
+    }
+    storage.secondNumber += number;
   }
 }
 
 function storeOperation(operation) {
-  if (!storage.operation) {
+  if (!storage.operation && storage.firstNumber) {
     storage.operation = operation;
   }
 }
@@ -171,9 +186,27 @@ function operate() {
   }
 }
 
-//temp outpt
-const tempOutput = document.getElementById('temp-output');
-const container = document.getElementById('container');
-container.addEventListener('click', () => {
-  tempOutput.innerHTML = `storage content:<br>first: ${storage.firstNumber} ${typeof storage.firstNumber}<br>second: ${storage.secondNumber} ${typeof storage.secondNumber}<br>operation: ${storage.operation}`;
-});
+function back() {
+  if (!storage.operation) {
+    let auxVar = storage.firstNumber;
+    auxVar = auxVar.split('');
+    auxVar.pop();
+    storage.firstNumber = auxVar.join('');
+    display(storage.firstNumber);
+  } else if (storage.operation) {
+    let auxVar = storage.secondNumber;
+    auxVar = auxVar.split('');
+    auxVar.pop();
+    storage.secondNumber = auxVar.join('');
+    display(storage.secondNumber);
+  }
+}
+
+// choose whether to display first or second number
+function chooseDisplay() {
+  if (!storage.operation) {
+    display(storage.firstNumber);
+  } else {
+    display(storage.secondNumber);
+  }
+}
