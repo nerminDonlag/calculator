@@ -124,8 +124,10 @@ function display(value) {
   let onScreen = document.getElementById('display');
   if (value.length > 8) {
     onScreen.innerHTML = `TO BIG`;
+    clear();
   } else if (value < 0) {
     onScreen.innerHTML = 'NEG.NUM'
+    clear();
   } else {
     onScreen.innerHTML = `${value}`;
   }
@@ -155,6 +157,10 @@ function storeNumber(number) {
 
 function storeOperation(operation) {
   if (!storage.operation && storage.firstNumber) {
+    storage.operation = operation;
+  } else if (storage.secondNumber) {
+    operate();
+    display(storage.firstNumber);
     storage.operation = operation;
   }
 }
