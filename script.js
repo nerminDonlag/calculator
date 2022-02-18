@@ -272,6 +272,7 @@ document.addEventListener('keypress', (e) => {
       break;
     case 'Enter':
     case 'NumpadEnter':
+      btnEquals.focus();
       operate();
       display(storage.firstNumber)
       break;
