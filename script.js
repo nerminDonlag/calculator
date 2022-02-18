@@ -216,3 +216,86 @@ function chooseDisplay() {
     display(storage.secondNumber);
   }
 }
+
+// keyboard support
+document.addEventListener('keypress', (e) => {
+  switch (e.code) {
+    case 'Numpad0':
+    case 'Digit0':
+      storeNumber('0');
+      chooseDisplay();
+      break;
+    case 'Numpad1':
+    case 'Digit1':
+      storeNumber('1');
+      chooseDisplay();
+      break;
+    case 'Numpad2':
+    case 'Digit2':
+      storeNumber('2');
+      chooseDisplay();
+      break;
+    case 'Numpad3':
+    case 'Digit3':
+      storeNumber('3');
+      chooseDisplay();
+      break;
+    case 'Numpad4':
+    case 'Digit4':
+      storeNumber('4');
+      chooseDisplay();
+      break;
+    case 'Numpad5':
+    case 'Digit5':
+      storeNumber('5');
+      chooseDisplay();
+      break;
+    case 'Numpad6':
+    case 'Digit6':
+      storeNumber('6');
+      chooseDisplay();
+      break;
+    case 'Numpad7':
+    case 'Digit7':
+      storeNumber('7');
+      chooseDisplay();
+      break;
+    case 'Numpad8':
+    case 'Digit8':
+      storeNumber('8');
+      chooseDisplay();
+      break;
+    case 'Numpad9':
+    case 'Digit9':
+      storeNumber('9');
+      chooseDisplay();
+      break;
+    case 'Enter':
+    case 'NumpadEnter':
+      operate();
+      display(storage.firstNumber)
+      break;
+    case 'Add':
+    case 'NumpadAdd':
+      storeOperation('add');
+      break;
+    case 'Subtract':
+    case 'NumpadSubtract':
+      storeOperation('subtract');
+      break;
+    case 'Multiply':
+    case 'NumpadMultiply':
+      storeOperation('multiply');
+      break;
+    case 'Divide':
+    case 'NumpadDivide':
+      storeOperation('divide');
+      break;
+    case 'Delete':
+      back();
+      break;
+    case 'NumpadDecimal':
+      alert('Decimals not yet implemented!');
+      break;
+  }
+});
