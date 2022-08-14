@@ -120,6 +120,114 @@ const calculator = (() => {
     render()
   })
 
+  //keyboard support
+  document.addEventListener('keydown', (event) => {
+    switch (event.code) {
+      case 'Delete':
+        clear()
+        render()
+        break
+      case 'Backspace':
+        const length = currentOperand.toString().length
+        if (length === 1) {
+          currentOperand = 0
+        } else {
+          currentOperand = Number(currentOperand.toString().slice(0, length - 1))
+        }
+        render()
+        break
+      case 'Digit0':
+      case 'Numpad0':
+        if (currentOperand.toString().includes(".")) {
+          currentOperand = currentOperand.toString() + '0'
+        } else {
+          currentOperand = Number(currentOperand.toString() + '0')
+        }
+        render()
+        break
+      case 'Digit1':
+      case 'Numpad1':
+        currentOperand = Number(currentOperand.toString() + '1')
+        render()
+        break
+      case 'Digit2':
+      case 'Numpad2':
+        currentOperand = Number(currentOperand.toString() + '2')
+        render()
+        break
+      case 'Digit3':
+      case 'Numpad3':
+        currentOperand = Number(currentOperand.toString() + '3')
+        render()
+        break
+      case 'Digit4':
+      case 'Numpad4':
+        currentOperand = Number(currentOperand.toString() + '4')
+        render()
+        break
+      case 'Digit5':
+      case 'Numpad5':
+        currentOperand = Number(currentOperand.toString() + '5')
+        render()
+        break
+      case 'Digit6':
+      case 'Numpad6':
+        currentOperand = Number(currentOperand.toString() + '6')
+        render()
+        break
+      case 'Digit7':
+      case 'Numpad7':
+        currentOperand = Number(currentOperand.toString() + '7')
+        render()
+        break
+      case 'Digit8':
+      case 'Numpad8':
+        currentOperand = Number(currentOperand.toString() + '8')
+        render()
+        break
+      case 'Digit9':
+      case 'Numpad9':
+        currentOperand = Number(currentOperand.toString() + '9')
+        render()
+        break
+      case 'NumpadAdd':
+        handler()
+        operator = '+'
+        render()
+        break
+      case 'NumpadSubtract':
+        handler()
+        operator = '–'
+        render()
+        break
+      case 'NumpadMultiply':
+        handler()
+        operator = 'x'
+        render()
+        break
+      case 'NumpadDivide':
+        handler()
+        operator = '÷'
+        render()
+        break
+      case 'Enter':
+      case 'NumpadEnter':
+        if (operator !== '') {
+          currentOperand = calculate(Number(currentOperand), Number(savedOperand), operator)
+          savedOperand = ''
+          operator = ''
+        }
+        render()
+        break
+      case 'NumpadDecimal':
+        if (!currentOperand.toString().includes(".")) {
+          currentOperand = currentOperand.toString() + '.'
+        }
+        render()
+        break
+    }
+  })
+
   //functions
   function clear() {
     currentOperand = 0
