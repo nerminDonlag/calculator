@@ -107,7 +107,7 @@ const calculator = (() => {
   })
   equality.addEventListener('click', () => {
     if (operator !== '') {
-      currentOperand = calculate(currentOperand, savedOperand, operator)
+      currentOperand = calculate(Number(currentOperand), Number(savedOperand), operator)
       savedOperand = ''
       operator = ''
     }
@@ -120,6 +120,7 @@ const calculator = (() => {
     render()
   })
 
+  //functions
   function clear() {
     currentOperand = 0
     savedOperand = ''
@@ -152,14 +153,14 @@ const calculator = (() => {
 
   function render() {
     if (savedOperand.toString().length > 8) {
-      top.innerHTML = `${savedOperand.toString().slice(0, 8)} ${operator}`
+      top.textContent = `${savedOperand.toString().slice(0, 8)} ${operator}`
     } else {
-      top.innerHTML = `${savedOperand} ${operator}`
+      top.textContent = `${savedOperand} ${operator}`
     }
     if (currentOperand.toString().length > 8) {
-      main.innerHTML = currentOperand.toString().slice(0, 8)
+      main.textContent = currentOperand.toString().slice(0, 8)
     } else {
-      main.innerHTML = currentOperand
+      main.textContent = currentOperand
     }
   }
 
@@ -167,7 +168,7 @@ const calculator = (() => {
     if (operator === '') {
       savedOperand = currentOperand
     } else {
-      savedOperand = calculate(currentOperand, savedOperand, operator)
+      savedOperand = calculate(Number(currentOperand), Number(savedOperand), operator)
     }
     currentOperand = 0
   }
