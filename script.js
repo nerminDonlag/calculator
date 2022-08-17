@@ -270,6 +270,8 @@ const calculator = (() => {
     } else {
       main.textContent = currentOperand
     }
+    //remove focus after button click
+    document.activeElement.blur()
   }
 
   function handler() {
